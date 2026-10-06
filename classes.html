@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>School Classes</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="classes-page">
+
+    <h1>🏫 School Classes</h1>
+
+    <p>Select a class to view students</p>
+
+    <div class="class-grid">
+
+        <div class="class-card" onclick="openClass('5th')">
+            <h2>5th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('6th')">
+            <h2>6th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('7th')">
+            <h2>7th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('8th')">
+            <h2>8th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('9th')">
+            <h2>9th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('10th')">
+            <h2>10th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('11th')">
+            <h2>11th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+        <div class="class-card" onclick="openClass('12th')">
+            <h2>12th Class</h2>
+            <p>View Students →</p>
+        </div>
+
+    </div>
+
+    <button class="back-btn" onclick="goBack()">← Back to Dashboard</button>
+
+</div>
+
+<script>
+
+function openClass(className) {
+
+    localStorage.setItem("selectedClass", className);
+
+    window.location.href = "class-students.html";
+}
+
+function goBack() {
+
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+</body>
+</html>

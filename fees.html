@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="students-page">
+
+    <h1>💰 Fees Management</h1>
+    <p>Manage student fees information</p>
+
+    <div class="table-box">
+
+        <h2>Student Fees</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Total Fees</th>
+                    <th>Paid Fees</th>
+                    <th>Remaining Fees</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="feesTable"></tbody>
+        </table>
+
+        <p id="noStudents">No students available.</p>
+
+    </div>
+
+    <button class="back-btn" onclick="goDashboard()">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+
+<script>
+
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+let table = document.getElementById("feesTable");
+
+let noStudents = document.getElementById("noStudents");
+
+
+if (students.length === 0) {
+
+    noStudents.style.display = "block";
+
+} else {
+
+    noStudents.style.display = "none";
+
+    students.forEach((student, index) => {
+
+        let totalFees = 10000;
+        let paidFees = 5000;
+        let remainingFees = totalFees - paidFees;
+
+        let status = remainingFees === 0 ? "Paid" : "Pending";
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${student.roll || index + 1}</td>
+            <td>${student.name}</td>
+            <td>${student.className}</td>
+            <td>₹${totalFees}</td>
+            <td>₹${paidFees}</td>
+            <td>₹${remainingFees}</td>
+            <td>${status}</td>
+        `;
+
+        table.appendChild(row);
+
+    });
+}
+
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>

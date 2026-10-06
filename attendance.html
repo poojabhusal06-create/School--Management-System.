@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Attendance</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="students-page">
+
+    <h1>📝 Student Attendance</h1>
+
+    <p>Mark today's attendance</p>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Roll No</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Attendance</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="attendanceTable">
+            </tbody>
+
+        </table>
+
+        <p id="noStudents">
+            No students available.
+        </p>
+
+    </div>
+
+    <button class="add-btn" onclick="saveAttendance()">
+        💾 Save Attendance
+    </button>
+
+    <br>
+
+    <button class="back-btn" onclick="goDashboard()">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+
+<script>
+
+let students =
+    JSON.parse(localStorage.getItem("students")) || [];
+
+let table =
+    document.getElementById("attendanceTable");
+
+let noStudents =
+    document.getElementById("noStudents");
+
+
+if (students.length === 0) {
+
+    noStudents.style.display = "block";
+
+} else {
+
+    noStudents.style.display = "none";
+
+    students.forEach((student, index) => {
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>${student.roll || index + 1}</td>
+
+            <td>${student.name}</td>
+
+            <td>${student.className}</td>
+
+            <td>
+
+                <select class="attendance">
+
+                    <option value="Present">
+                        Present
+                    </option>
+
+                    <option value="Absent">
+                        Absent
+                    </option>
+
+                </select>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function saveAttendance() {
+
+    let attendance =
+        document.querySelectorAll(".attendance");
+
+    let records = [];
+
+    students.forEach((student, index) => {
+
+        records.push({
+
+            name: student.name,
+
+            roll: student.roll,
+
+            className: student.className,
+
+            status: attendance[index].value,
+
+            date: new Date().toLocaleDateString()
+
+        });
+
+    });
+
+
+    localStorage.setItem(
+        "attendance",
+        JSON.stringify(records)
+    );
+
+
+    alert("Attendance saved successfully!");
+
+}
+
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

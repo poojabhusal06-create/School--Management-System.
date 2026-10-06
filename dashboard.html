@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>School Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Header -->
+    <header>
+        <div>
+            <h1>🏫 School Management System</h1>
+            <p>Welcome, <span id="studentName"></span></p>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+    </header>
+
+
+    <!-- Welcome -->
+    <div class="welcome-box">
+        <h2>Welcome to Student Dashboard 👋</h2>
+        <p>Manage your school information easily.</p>
+    </div>
+
+
+    <!-- Dashboard Cards -->
+    <div class="cards">
+
+        <!-- Classes -->
+        <div class="card" onclick="openClasses()">
+            <h2>📚</h2>
+            <h3>Classes</h3>
+            <p>View Classes</p>
+        </div>
+
+
+        <!-- Students -->
+        <div class="card" onclick="openStudents()">
+            <h2>👨‍🎓</h2>
+            <h3>Students</h3>
+            <p>Manage Students</p>
+        </div>
+
+
+        <!-- Teachers -->
+        <div class="card" onclick="openTeachers()">
+            <h2>👩‍🏫</h2>
+            <h3>Teachers</h3>
+            <p>View Teachers</p>
+        </div>
+
+
+        <!-- Attendance -->
+        <div class="card" onclick="openAttendance()">
+            <h2>📝</h2>
+            <h3>Attendance</h3>
+            <p>Mark Attendance</p>
+        </div>
+
+
+        <!-- Fees -->
+        <div class="card" onclick="openFees()">
+            <h2>💰</h2>
+            <h3>Fees</h3>
+            <p>Manage Fees</p>
+        </div>
+
+
+        <!-- Notices -->
+        <div class="card" onclick="openNotices()">
+            <h2>📢</h2>
+            <h3>Notices</h3>
+            <p>View Notices</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // Show logged-in student name
+    let student = JSON.parse(localStorage.getItem("student"));
+
+    if (!student) {
+        window.location.href = "index.html";
+    } else {
+        document.getElementById("studentName").innerText = student.name;
+    }
+
+
+    // Classes
+    function openClasses() {
+        window.location.href = "classes.html";
+    }
+
+
+    // Students
+    function openStudents() {
+        window.location.href = "class-students.html";
+    }
+
+
+    // Teachers
+    function openTeachers() {
+        window.location.href="teachers.html";
+    }
+
+
+    // Attendance
+    function openAttendance() {
+        window.location.href = "attendance.html";
+    }
+
+
+    // Fees
+    function openFees() {
+        window.location.href="fees.html";
+    }
+
+
+    // Notices
+    function openNotices() {
+        window.location.href="notices.html";
+    }
+
+
+    // Logout
+    function logout() {
+        localStorage.removeItem("student");
+        window.location.href = "index.html";
+    }
+
+</script>
+
+</body>
+</html>

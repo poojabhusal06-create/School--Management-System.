@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="admin-page">
+
+    <header class="admin-header">
+        <div>
+            <h1>🏫 School Management System</h1>
+            <p>Admin Dashboard</p>
+        </div>
+
+        <button onclick="logoutAdmin()">Logout</button>
+    </header>
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="summary">
+
+        <div class="summary-card">
+            <h2>👨‍🎓</h2>
+            <h3 id="totalStudents">0</h3>
+            <p>Registered Students</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>👩‍🏫</h2>
+            <h3 id="totalTeachers">0</h3>
+            <p>Total Teachers</p>
+        </div>
+
+        <div class="summary-card">
+            <h2>🏫</h2>
+            <h3>8</h3>
+            <p>Total Classes</p>
+        </div>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <div class="admin-menu">
+
+        <button onclick="showStudents()">
+            👨‍🎓 Registered Students
+        </button>
+
+        <button onclick="showTeachers()">
+            👩‍🏫 Teachers
+        </button>
+
+        <button onclick="window.location.href='classes.html'">
+            🏫 Classes
+        </button>
+
+    </div>
+
+
+    <!-- REGISTERED STUDENTS -->
+
+    <div id="studentSection" class="admin-section">
+
+        <h2>👨‍🎓 Registered Students</h2>
+
+        <p>Total Registered:
+            <b id="studentCount">0</b>
+        </p>
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Class</th>
+                        <th>Division</th>
+                    </tr>
+                </thead>
+
+                <tbody id="registeredStudents">
+                </tbody>
+
+            </table>
+
+            <p id="emptyMessage">
+                No students registered yet.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEACHERS -->
+
+    <div id="teacherSection" class="admin-section hidden">
+
+        <h2>👩‍🏫 Teacher Management</h2>
+
+        <button class="add-btn" onclick="showTeacherForm()">
+            + Add Teacher
+        </button>
+
+        <div id="teacherForm" class="student-form hidden">
+
+            <h3>Add Teacher</h3>
+
+            <input
+                type="text"
+                id="teacherName"
+                placeholder="Teacher Name">
+
+            <input
+                type="email"
+                id="teacherEmail"
+                placeholder="Teacher Email">
+
+            <input
+                type="text"
+                id="teacherSubject"
+                placeholder="Subject">
+
+            <button onclick="addTeacher()">
+                Save Teacher
+            </button>
+
+        </div>
+
+        <div class="table-box">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                    </tr>
+                </thead>
+
+                <tbody id="teacherTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function getRegisteredStudents() {
+
+    return JSON.parse(
+        localStorage.getItem("students")
+    ) || [];
+
+}
+
+
+function displayRegisteredStudents() {
+
+    let students = getRegisteredStudents();
+
+    document.getElementById("totalStudents").innerText =
+        students.length;
+
+    document.getElementById("studentCount").innerText =
+        students.length;
+
+
+    let table =
+        document.getElementById("registeredStudents");
+
+    table.innerHTML = "";
+
+
+    document.getElementById("emptyMessage").style.display =
+        students.length === 0 ? "block" : "none";
+
+
+    students.forEach((student, index) => {
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>${student.name}</td>
+
+            <td>${student.email}</td>
+
+            <td>${student.mobile}</td>
+
+            <td>${student.className}</td>
+
+            <td>${student.division}</td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function showStudents() {
+
+    document.getElementById("studentSection")
+        .classList.remove("hidden");
+
+    document.getElementById("teacherSection")
+        .classList.add("hidden");
+
+}
+
+
+function showTeachers() {
+
+    document.getElementById("teacherSection")
+        .classList.remove("hidden");
+
+    document.getElementById("studentSection")
+        .classList.add("hidden");
+
+    displayTeachers();
+
+}
+
+
+function showTeacherForm() {
+
+    document.getElementById("teacherForm")
+        .classList.remove("hidden");
+
+}
+
+
+function addTeacher() {
+
+    let name =
+        document.getElementById("teacherName").value;
+
+    let email =
+        document.getElementById("teacherEmail").value;
+
+    let subject =
+        document.getElementById("teacherSubject").value;
+
+
+    if (name === "" || email === "" || subject === "") {
+
+        alert("Please fill all fields.");
+
+        return;
+
+    }
+
+
+    let teachers =
+        JSON.parse(localStorage.getItem("teachers")) || [];
+
+
+    teachers.push({
+
+        name: name,
+        email: email,
+        subject: subject
+
+    });
+
+
+    localStorage.setItem(
+        "teachers",
+        JSON.stringify(teachers)
+    );
+
+
+    alert("Teacher added successfully!");
+
+
+    document.getElementById("teacherName").value = "";
+    document.getElementById("teacherEmail").value = "";
+    document.getElementById("teacherSubject").value = "";
+
+
+    document.getElementById("teacherForm")
+        .classList.add("hidden");
+
+
+    displayTeachers();
+
+}
+
+
+function displayTeachers() {
+
+    let teachers =
+        JSON.parse(localStorage.getItem("teachers")) || [];
+
+
+    document.getElementById("totalTeachers").innerText =
+        teachers.length;
+
+
+    let table =
+        document.getElementById("teacherTable");
+
+    table.innerHTML = "";
+
+
+    teachers.forEach((teacher, index) => {
+
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+
+            <td>${teacher.name}</td>
+
+            <td>${teacher.email}</td>
+
+            <td>${teacher.subject}</td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function logoutAdmin() {
+
+    window.location.href = "index.html";
+
+}
+
+
+displayRegisteredStudents();
+
+displayTeachers();
+
+</script>
+
+</body>
+</html>

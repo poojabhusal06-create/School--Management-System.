@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="welcome">
+            <h1>🏫 School Management System</h1>
+            <p>Manage Students, Teachers, Classes & School Activities</p>
+        </div>
+
+        <!-- LOGIN -->
+        <div class="box" id="loginBox">
+
+            <h2>Student Login</h2>
+
+            <input type="email" id="loginEmail" placeholder="Enter Email">
+
+            <input type="password" id="loginPassword" placeholder="Enter Password">
+
+            <button onclick="login()">Login</button>
+
+            <p>
+                Don't have an account?
+                <button class="linkBtn" onclick="showRegister()">Register</button>
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER -->
+        <div class="box hidden" id="registerBox">
+
+            <h2>Student Registration</h2>
+
+            <input type="text" id="name" placeholder="Full Name">
+
+            <input type="email" id="email" placeholder="Email">
+
+            <input type="text" id="mobile" placeholder="Mobile Number">
+
+            <input type="password" id="password" placeholder="Create Password">
+
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+            <select id="className">
+                <option value="">Select Class</option>
+                <option>5th</option>
+                <option>6th</option>
+                <option>7th</option>
+                <option>8th</option>
+                <option>9th</option>
+                <option>10th</option>
+                <option>11th</option>
+                <option>12th</option>
+            </select>
+
+            <select id="division">
+                <option value="">Select Division</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+
+            <button onclick="register()">Register</button>
+
+            <p>
+                Already have an account?
+                <button class="linkBtn" onclick="showLogin()">Login</button>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

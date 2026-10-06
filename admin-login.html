@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>🏫 School Management System</h1>
+        <p>Administrator Login</p>
+    </div>
+
+    <div class="box">
+
+        <h2>🔐 Admin Login</h2>
+
+        <input
+            type="text"
+            id="adminUsername"
+            placeholder="Admin Username">
+
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Admin Password">
+
+        <button onclick="adminLogin()">
+            Login as Admin
+        </button>
+
+        <p>
+            <button class="linkBtn" onclick="goStudentLogin()">
+                ← Student Login
+            </button>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+function adminLogin() {
+
+    let username =
+        document.getElementById("adminUsername").value;
+
+    let password =
+        document.getElementById("adminPassword").value;
+
+    if (username === "admin" && password === "admin123") {
+
+        alert("Admin Login Successful!");
+
+        localStorage.setItem("adminLoggedIn", "true");
+
+        window.location.href = "admin.html";
+
+    } else {
+
+        alert("Invalid Admin Username or Password.");
+
+    }
+}
+
+
+function goStudentLogin() {
+
+    window.location.href = "index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
